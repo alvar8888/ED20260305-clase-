@@ -29,7 +29,7 @@ public class TablaMultiplicar{
      * Constructor de la clase TablaMultiplicar.
      * Inicializa el número del cual se generará la tabla.
      * 
-     * @param numero número del que se quiere generar la tabla de multiplicar
+     * @param numero2 número del que se quiere generar la tabla de multiplicar
      */
     public TablaMultiplicar(int numero){
         this.numero = numero;

@@ -54,7 +54,7 @@ public class VistaMenu extends VistaGeneral {
      */
     public void mostrarOpciones() { 
         for (int i = 0; i < opciones.size(); i++) {
-            System.out.println((i + 1) + ". " + opciones.get(i));
+            System.out.println((i) + ". " + opciones.get(i));
         }
     }
 
