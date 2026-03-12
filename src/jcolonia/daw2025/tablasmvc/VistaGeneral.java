@@ -15,10 +15,10 @@ public class VistaGeneral {
 	int n;
 
 	/** Formato utilizado para mostrar texto estándar por pantalla. */
-	private String FORMATO_PRINTF_MOSTRARTEXTO ="%s%n";
+	private final String FORMATO_PRINTF_MOSTRARTEXTO ="%s%n";
 
 	/** Formato utilizado para mostrar avisos al usuario. */
-	private static String FORMATO_PRINTF_MOSTRARSC = "AVISO: %s%n";
+	private static final String FORMATO_PRINTF_MOSTRARSC = "AVISO: %s%n";
 
 	/** Scanner utilizado para leer datos introducidos por teclado. */
 	private static Scanner scEntrada= new Scanner(System.in);
