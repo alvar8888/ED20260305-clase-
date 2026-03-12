@@ -38,7 +38,7 @@ public class VistaGeneral {
 	 * @param texto el mensaje de aviso que se desea mostrar
 	 */
 	public void mostrarAviso(String texto) {
-		System.out.printf(FORMATO_PRINTF_MOSTRARSC);
+		System.out.printf(FORMATO_PRINTF_MOSTRARSC, texto);
 	}
 
 	/**
@@ -47,7 +47,8 @@ public class VistaGeneral {
 	 * @param texto el texto que se mostrará como título
 	 */
 	public void mostrarTitulo(String texto) {
-		
+		System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
+        System.out.println("================================");
 	}
 
 	/**
@@ -56,6 +57,8 @@ public class VistaGeneral {
 	 * @param texto el texto que se mostrará como subtítulo
 	 */
 	public void mostrarTitulo2(String texto) {
+        System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
+        System.out.println("-------------------------------");
 		
 	}
 
@@ -78,7 +81,8 @@ public class VistaGeneral {
 	 * @param texto el mensaje que se mostrará antes de la pausa
 	 */
 	public void Pausa(String texto) {
-		
+		System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
+		scEntrada.nextLine();
 	}
 
 	/**
@@ -100,8 +104,10 @@ public class VistaGeneral {
 	 * @param Lista lista de cadenas que se desea mostrar
 	 */
 	public void mostrarLista(List<String> Lista) {
-		
-		
+
+	    for(String texto : Lista){
+	        System.out.println(texto);
+	    }
 	}
 
 	/**
@@ -113,4 +119,5 @@ public class VistaGeneral {
 		scEntrada.close();
 	}
 }
+
 
