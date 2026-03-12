@@ -18,10 +18,10 @@ public class VistaGeneral {
 	private String FORMATO_PRINTF_MOSTRARTEXTO ="%s%n";
 
 	/** Formato utilizado para mostrar avisos al usuario. */
-	private String FORMATO_PRINTF_MOSTRARSC = "AVISO: %s%n";
+	private static String FORMATO_PRINTF_MOSTRARSC = "AVISO: %s%n";
 
 	/** Scanner utilizado para leer datos introducidos por teclado. */
-	private Scanner scEntrada= new Scanner(System.in);
+	private static Scanner scEntrada= new Scanner(System.in);
 
 	/**
 	 * Muestra un texto simple por pantalla.
@@ -37,7 +37,7 @@ public class VistaGeneral {
 	 * 
 	 * @param texto el mensaje de aviso que se desea mostrar
 	 */
-	public void mostrarAviso(String texto) {
+	public static void mostrarAviso(String texto) {
 		System.out.printf(FORMATO_PRINTF_MOSTRARSC, texto);
 	}
 
@@ -68,7 +68,7 @@ public class VistaGeneral {
 	 * @param texto el mensaje que se muestra para pedir el número
 	 * @return el número introducido por el usuario
 	 */
-	public int pedirNumero(String texto) {
+	public static int pedirNumero(String texto) {
 		System.out.print(texto + ":");
 		int numero= scEntrada.nextInt();
 		scEntrada.nextLine();
