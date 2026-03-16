@@ -15,7 +15,7 @@ public class VistaGeneral {
 	int n;
 
 	/** Formato utilizado para mostrar texto estándar por pantalla. */
-	private final String FORMATO_PRINTF_MOSTRARTEXTO ="%s%n";
+	private final static String FORMATO_PRINTF_MOSTRARTEXTO ="%s%n";
 
 	/** Formato utilizado para mostrar avisos al usuario. */
 	private static final String FORMATO_PRINTF_MOSTRARSC = "AVISO: %s%n";
@@ -46,7 +46,7 @@ public class VistaGeneral {
 	 * 
 	 * @param texto el texto que se mostrará como título
 	 */
-	public void mostrarTitulo(String texto) {
+	public static void mostrarTitulo(String texto) {
 		System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
         System.out.println("================================");
 	}
@@ -56,7 +56,7 @@ public class VistaGeneral {
 	 * 
 	 * @param texto el texto que se mostrará como subtítulo
 	 */
-	public void mostrarTitulo2(String texto) {
+	public static void mostrarTitulo2(String texto) {
         System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
         System.out.println("-------------------------------");
 		
@@ -80,7 +80,7 @@ public class VistaGeneral {
 	 * 
 	 * @param texto el mensaje que se mostrará antes de la pausa
 	 */
-	public void Pausa(String texto) {
+	public static void Pausa(String texto) {
 			scEntrada = new Scanner(System.in);
 			mostrarTexto(texto + " (Pulsa Enter para continuar)");
 	        scEntrada.nextLine();
@@ -95,7 +95,7 @@ public class VistaGeneral {
 	 * @param texto el mensaje que solicita la confirmación
 	 * @return {@code true} si el usuario responde "s" o "S", {@code false} en caso contrario
 	 */
-	public boolean pedirConfirmacion(String texto) {
+	public static boolean pedirConfirmacion(String texto) {
 		System.out.print(texto + "(S/N): ");
 		String respuesta=scEntrada.nextLine();
 		return respuesta.equalsIgnoreCase("s");
@@ -106,7 +106,7 @@ public class VistaGeneral {
 	 * 
 	 * @param Lista lista de cadenas que se desea mostrar
 	 */
-	public void mostrarLista(List<String> Lista) {
+	public static void mostrarLista(List<String> Lista) {
 
 	    for(String texto : Lista){
 	        System.out.println(texto);
@@ -117,10 +117,12 @@ public class VistaGeneral {
 	 * Muestra información del objeto Scanner utilizado para la entrada
 	 * y posteriormente lo cierra.
 	 */
-	public void getScEntrada() {
+	public static void getScEntrada() {
 		System.out.print(scEntrada);	
 		scEntrada.close();
 	}
-}
+		
+	}
+
 
 

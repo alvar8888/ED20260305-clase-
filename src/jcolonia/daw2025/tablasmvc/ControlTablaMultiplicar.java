@@ -1,49 +1,52 @@
 package jcolonia.daw2025.tablasmvc;
-
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import jcolonia.daw2025.tablasmvc.VistaMenu.*;
+
 /**
- * Núcleo de la aplicación de consola de texto con menús.
- * Esta clase gestiona la lógica de las tablas de multiplicar infantiles clásicas.
- * Permite mostrar la tabla activa, cambiarla y exportarla a un archivo.
- * Funciona con un menú principal interactivo en consola.
- * 
- * @author 
- * @version 1.0
+ * Núcleo de la aplicación de consola con sistema de menús.
+ * La aplicación permite trabajar con tablas de multiplicar
+ * clásicas infantiles, mostrando la tabla activa, cambiándola
+ * o exportándola a un archivo de texto.
  */
 public class ControlTablaMultiplicar {
 
     /**
-     * Formato tipo «printf» para el nombre del archivo de exportación.
-     * Se usa con el número de la tabla para generar un archivo como
-     * "tabla del 03.txt".
+     * Formato tipo «printf» para el nombre del archivo
+     * utilizado en la exportación de la tabla.
      */
     public static final String FORMATO_RUTA_ARCHIVO_EXPORTACIÓN =
-            "tabla del %02d.txt";
+        "tabla del %02d.txt";
 
-    /**
-     * Opciones disponibles en el menú principal.
-     */
-    private static final String[] OPCIONES_MENU_PRINCIPAL = {
-            "Mostrar tabla", "Cambiar tabla", "Exportar tabla"};
-
-    /**
-     * Tabla de multiplicar actualmente activa.
-     */
+    /** Tabla de multiplicar actualmente activa. */
     private TablaMultiplicar tabla;
 
+    /** Número correspondiente a la tabla activa. */
+    private int numeroActivo;
+
+    /** Lista con los textos de las opciones disponibles en el menú principal. */
+    private static final List<String> OPCIONES_MENÚ_PRINCIPAL = new ArrayList<>();
+
+    static {
+        OPCIONES_MENÚ_PRINCIPAL.add("Mostrar tabla activa");
+        OPCIONES_MENÚ_PRINCIPAL.add("Cambiar tabla (nuevo número)");
+        OPCIONES_MENÚ_PRINCIPAL.add("Exportar tabla a archivo");
+        OPCIONES_MENÚ_PRINCIPAL.add("Salir");
+    }
+
     /**
-     * Constructor de la clase {@code ControlTablaMultiplicar}.
-     * Inicializa la primera tabla activa mediante {@link #init()}.
+     * Constructor principal de la clase ControlTablaMultiplicar.
+     * Inicializa la aplicación preparando la primera tabla activa.
      */
     public ControlTablaMultiplicar() {
         init();
     }
 
     /**
-     * Inicializa la aplicación solicitando al usuario un número
-     * para establecer la primera tabla de multiplicar activa.
+     * Solicita al usuario un número y prepara la primera
+     * tabla de multiplicar activa.
      */
     public void init() {
         cambiarTabla();
@@ -51,71 +54,82 @@ public class ControlTablaMultiplicar {
 
     /**
      * Gestiona el menú principal de la aplicación.
-     * Permite al usuario seleccionar las opciones disponibles:
-     * mostrar la tabla, cambiarla o exportarla. El menú se repite
-     * hasta que el usuario seleccione 0 para salir.
+     * Desde este menú el usuario puede seleccionar las
+     * distintas opciones disponibles.
+     * 
+     * El programa finaliza cuando el usuario elige la opción de salida.
      */
     public void buclePrincipal() {
-        VistaMenu menú;
-        int opción;
-
-        menú = new VistaMenu("Tablas de multiplicar", Arrays.asList(OPCIONES_MENU_PRINCIPAL));
+        VistaMenu menu = new VistaMenu("Tablas de multiplicar", OPCIONES_MENÚ_PRINCIPAL);
+        int opción = -1;
 
         do {
-            menú.mostrarOpciones();
-            opción = menú.pedirOpcion();
+                menu.mostrarOpciones();
+                opción = menu.pedirOpción();
 
-            switch (opción) {
-                case 1: // Mostrar tabla
-                    mostrarTabla();
-                    break;
-                case 2: // Cambiar tabla
-                    cambiarTabla();
-                    break;
-                case 3: // Exportar tabla
-                    exportarTabla();
-                    break;
-                case 0: // Salir
-                    break;
-                default: // Opciones no implementadas
-                    opciónNoDisponible();
-                    break;
-            }
-
+                switch (opción) {
+                    case 1:
+                        mostrarTabla();
+                        break;
+                    case 2:
+                        cambiarTabla();
+                        break;
+                    case 3:
+                        exportarTabla();
+                        break;
+                    case 0: // SALIR
+                        break;
+                    default:
+                        opciónNoDisponible();
+                        break;
+                }
         } while (opción != 0);
 
         VistaGeneral.mostrarAviso("FIN");
     }
-
-    /**
-     * Muestra por pantalla los productos correspondientes
-     * a la tabla de multiplicar activa.
-     * Actualmente este método está vacío y debe implementarse.
-     */
-    private void mostrarTabla() {}
-
-    /**
-     * Cambia la tabla activa solicitando al usuario un número
-     * y generando la nueva tabla correspondiente.
-     */
     private void cambiarTabla() {
-        VistaGeneral.pedirNumero("Introduzca el número para la tabla");
+        int n;
 
-        tabla = new TablaMultiplicar(numero);
-        TablaMultiplicar.numero();
+        System.out.println("Introduzca el número para la tabla:");
+
+        Scanner scEntrada = new Scanner(System.in);
+        n = scEntrada.nextInt();
+        this.numeroActivo = n;
+        scEntrada.nextLine();
+
+        tabla = new TablaMultiplicar(n);
         tabla.generarTabla();
+
+        VistaGeneral.mostrarAviso("Tabla del " + n + " preparada.");
     }
 
     /**
-     * Exporta a un archivo los productos correspondientes
-     * a la tabla de multiplicar activa.
-     * Actualmente este método está vacío y debe implementarse.
+     * Exporta el contenido de la tabla activa a un archivo de texto.
+     * El nombre del archivo se genera automáticamente utilizando
+     * el formato definido en {@link #FORMATO_RUTA_ARCHIVO_EXPORTACIÓN}.
      */
-    private void exportarTabla() {}
+    private void exportarTabla() {
+
+        String nombreArchivo = String.format(FORMATO_RUTA_ARCHIVO_EXPORTACIÓN, this.numeroActivo);
+
+        List<String> lineas = tabla.toListaExportacion();
+
+        try (java.io.PrintWriter escritor = new java.io.PrintWriter(nombreArchivo)) {
+            for (String linea : lineas) {
+                escritor.println(linea);
+            }
+            VistaGeneral.mostrarAviso("Archivo exportado con éxito: " + nombreArchivo);
+
+        } catch (java.io.FileNotFoundException e) {
+            VistaGeneral.mostrarAviso("Error al crear el archivo: " + e.getMessage());
+        }
+    }
 
     /**
-     * Muestra un mensaje de aviso indicando que
-     * la opción elegida no está disponible.
+     * Muestra un mensaje indicando que la opción elegida
+     * no está disponible dentro del menú.
      */
-    private void opciónNoDisponible() {}
+    private void opciónNoDisponible() {
+        VistaGeneral.mostrarAviso("La opcion indicada no esta disponible");
+    }
 }
