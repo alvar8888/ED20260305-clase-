@@ -81,9 +81,12 @@ public class VistaGeneral {
 	 * @param texto el mensaje que se mostrará antes de la pausa
 	 */
 	public void Pausa(String texto) {
-		System.out.printf(FORMATO_PRINTF_MOSTRARTEXTO, texto);
-		scEntrada.nextLine();
-	}
+			scEntrada = new Scanner(System.in);
+			mostrarTexto(texto + " (Pulsa Enter para continuar)");
+	        scEntrada.nextLine();
+	        scEntrada.nextLine();
+		}
+	
 
 	/**
 	 * Solicita al usuario una confirmación mediante una respuesta
