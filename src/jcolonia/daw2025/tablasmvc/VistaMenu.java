@@ -64,10 +64,19 @@ public class VistaMenu extends VistaGeneral {
      * 
      * @return La opción seleccionada por el usuario como un número entero.
      */
-    public int pedirOpcion() { 
-        System.out.print("Seleccione una opción: ");
-        return sc.nextInt();
-    }
+	public int pedirOpción() {
+		int opcionElegida;
+		
+		opcionElegida = sc.nextInt();
+		
+		if(opcionElegida > opciones.size()) {
+			throw new RuntimeException("Elige una opciones correcta");
+		}
+		
+		System.out.println("Indica una de las opciones");
+		
+		return opcionElegida;
+	}
 
     /**
      * Muestra un texto genérico usando el método {@link VistaGeneral#mostrarTexto(String)}.
